@@ -1,2 +1,0 @@
-# bloodthinners
-bloodthinner app
