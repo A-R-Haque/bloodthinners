@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VA Connecticut Blood Thinner Lookup</title>
+    <style>
+        body, .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          margin: 0;
+            margin-top: 20px;
+        }
+      .container {
+          width: 80%;
+          max-width: 1000px;
+          margin: auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+        .procedure-date-container, .time-selection, #calendarContainer, .risk-selection, .tables {
+            margin-bottom: 20px;
+            text-align: center; 
+        }
+        .time-button, .risk-button {
+            margin: 0 5px;
+            padding: 10px 20px;
+        }
+        .time-button.active, .risk-button.active {
+            background-color: #007bff;
+            color: white;
+        }
+        #calendarContainer {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            width: 70%;
+          margin: 0 auto;
+            height: auto;
+        }
+        .calendar-header, .day {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .calendar-header {
+            font-weight: bold;
+        }
+        .today {
+            background-color: red;
+            color: white;
+        }
+        .day:hover {
+            cursor: pointer;
+        }
+        .selected {
+            background-color: black;
+            color: white;
+        }
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #table1, #table2 {
+            display: none;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .action-button {
+            padding: 5px 10px;
+        }
+        #emailText {
+            display: none;
+            margin-top: 20px;
+        }
+      #summaryImage {
+      display: none;
+      margin-top: 20px;
+      width: 80%;
+        }
+      .header-image {
+          text-align: center;
+          margin-bottom: 0px;
+      }
+      .risk-selection {
+          margin-top: 20px;
+      }
+    </style>
+</head>
+<body>
+  <div class="header-image">
+      <img src="header.gif" alt="Header Image" style="width: 100%; max-width: 600px;">
+  </div>
+  <div class="container">
+      <div class="procedure-date-container">
+          <label for="procedureDate">Procedure Date:</label>
+          <input type="text" id="procedureDate" placeholder="mm/dd/yy">
+          <span id="timeDisplay">08:00 AM</span>
+      </div>
+      <div class="time-selection">
+          <button type="button" class="time-button active" id="morning">Morning</button>
+          <button type="button" class="time-button" id="afternoon">Afternoon</button>
+          <button type="button" class="time-button" id="specificHour">Specific Hour</button>
+          <input type="number" id="hourInput" min="1" max="12" placeholder="HH" style="display: none;">
+          <select id="ampmSelector" style="display: none;">
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+          </select>
+      </div>
+      <div id="calendarContainer"></div>
+      <div class="risk-selection">
+          <button type="button" class="risk-button active" id="common">Common</button>
+          <button type="button" class="risk-button" id="comprehensive">Comprehensive</button>
+      </div>
+      <div class="tables">
+          <!-- Table 1 -->
+          <table id="table1">
+            <tr>
+                <th>Medication</th>
+                <th>Hold for</th>
+                <th>Last dose before</th>
+            </tr>
+            <tr>
+                <td>Apixaban (Eliquis)</td>
+                <td>3 days</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Clopidogrel (Plavix)</td>
+                <td>7 days</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Dabigatran (Pradaxa)</td>
+                <td>4 days</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Prasugrel (Effient)</td>
+                <td>10 days</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Rivaroxaban (Xarelto)</td>
+                <td>3 days</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Ticagrelor (Brilinta)</td>
+                <td>5 days</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Warfarin (Coumadin)</td>
+                <td>5 days</td>
+                <td></td>
+            </tr>
+          </table>
+          <!-- Table 2 -->
+          <table id="table2">
+            <tr>
+              <th>Medication</th>
+              <th>Hold for</th>
+              <th>Last dose before</th>
+            </tr>
+            <tr><td>Abciximab</td><td>5 days</td><td></td></tr>
+            <tr><td>Acenocoumarol</td><td>3 days</td><td></td></tr>
+            <tr><td>Apixiban</td><td>3 days</td><td></td></tr>
+            <tr><td>ASA (only high risk procedure)</td><td>6 days </td><td></td></tr>
+            <tr><td>Cangrelor</td><td>3 hours</td><td></td></tr>
+            <tr><td>Cilostazol (only high risk procedure)</td><td>2 days </td><td></td></tr>
+            <tr><td>Clopidogrel</td><td>7 days</td><td></td></tr>
+            <tr><td>Coumadin</td><td>5 days</td><td></td></tr>
+            <tr><td>Dabigatran</td><td>4 days</td><td></td></tr>
+            <tr><td>Dabigatran (renal impairment)</td><td>6 days</td><td></td></tr>
+            <tr><td>Dalteparin</td><td>1 day</td><td></td></tr>
+            <tr><td>Diclofenac (only high risk procedure)</td><td>1 day</td><td></td></tr>
+            <tr><td>Dipyridamole (only high risk procedure)</td><td>2 days</td><td></td></tr>
+            <tr><td>Edoxaban</td><td>3 days</td><td></td></tr>
+            <tr><td>Enoxaparin (prophylactic)</td><td>12 hours</td><td></td></tr>
+            <tr><td>Enoxaparin (therapeutic)</td><td>1 day</td><td></td></tr>
+            <tr><td>Eptifibatide</td><td>1 day</td><td></td></tr>
+            <tr><td>Etodolac(only high risk procedure)</td><td>2 days</td><td></td></tr>
+            <tr><td>Fibrinolytic agents</td><td>2 days</td><td></td></tr>
+            <tr><td>Fondaparinux</td><td>4 days</td><td></td></tr>
+            <tr><td>Heparin IV</td><td>6 hours</td><td></td></tr>
+            <tr><td>Heparin SC</td><td>6 hours</td><td></td></tr>
+            <tr><td>Heparin SC (only high risk procedure)</td><td>1 day</td><td></td></tr>
+            <tr><td>Ibuprofen (only high risk procedure)</td><td>1 day</td><td></td></tr>
+            <tr><td>Indomethacin (only high risk procedure)</td><td>2 days</td><td></td></tr>
+            <tr><td>Ketorolac (only high risk procedure)</td><td>1 day</td><td></td></tr>
+            <tr><td>Meloxicam (only high risk procedure)</td><td>4 days </td><td></td></tr>
+            <tr><td>Nabumetone (only high risk procedure)</td><td>6 days</td><td></td></tr>
+            <tr><td>Naproxen (only high risk procedure)</td><td>4 days </td><td></td></tr>
+            <tr><td>Oxaprozin (only high risk procedure)</td><td>10 days </td><td></td></tr>
+            <tr><td>Piroxicam (only high risk procedure)</td><td>10 days </td><td></td></tr>
+            <tr><td>Prasugrel</td><td>10 days</td><td></td></tr>
+            <tr><td>Rivaroxaban</td><td>3 days</td><td></td></tr>
+            <tr><td>Ticagrelor</td><td>5 days</td><td></td></tr>
+            <tr><td>Tirofiban</td><td>1 day</td><td></td></tr>
+          </table>
+      </div>
+  </div>
+    <div class="action-buttons">
+        <button id="fullSummary" class="action-button">Full Summary</button>
+        <button id="source" class="action-button">Source</button>
+        <button id="questions" class="action-button">Questions/Concerns/Suggestions</button>
+    </div>
+    <img id="summaryImage" src="summary.gif" alt="Summary" style="display:none;">
+    <div id="emailText" style="display:none;">Please email Ahmed.Haque@VA.Gov</div>
+    <script>
+        document.getElementById('fullSummary').addEventListener('click', function() {
+            var summaryImage = document.getElementById('summaryImage');
+            summaryImage.style.display = summaryImage.style.display === 'none' ? 'block' : 'none';
+            document.getElementById('emailText').style.display = 'none';
+        });
+
+        document.getElementById('source').addEventListener('click', function() {
+            window.open('https://rapm.bmj.com/content/rapm/43/3/225.full.pdf', '_blank');
+        });
+
+        document.getElementById('questions').addEventListener('click', function() {
+            var emailText = document.getElementById('emailText');
+            emailText.style.display = emailText.style.display === 'none' ? 'block' : 'none';
+            document.getElementById('summaryImage').style.display = 'none';
+        });
+      document.addEventListener("DOMContentLoaded", function() {
+          const procedureDateInput = document.getElementById('procedureDate');
+          const timeDisplay = document.getElementById('timeDisplay');
+          const morningButton = document.getElementById('morning');
+          const afternoonButton = document.getElementById('afternoon');
+          const specificHourButton = document.getElementById('specificHour');
+          const hourInput = document.getElementById('hourInput');
+          const ampmSelector = document.getElementById('ampmSelector');
+          const commonButton = document.getElementById('common');
+          const comprehensiveButton = document.getElementById('comprehensive');
+          const table1 = document.getElementById('table1');
+          const table2 = document.getElementById('table2');
+          let lastSelectedDay;
+
+          function toggleActiveTimeButton(selectedButton) {
+              [morningButton, afternoonButton, specificHourButton].forEach(button => {
+                  button.classList.remove('active');
+              });
+              selectedButton.classList.add('active');
+          }
+
+          function showHourInput(show) {
+              hourInput.style.display = show ? 'block' : 'none';
+              ampmSelector.style.display = show ? 'block' : 'none';
+          }
+
+          function updateTimeDisplay(hour, ampm) {
+              timeDisplay.textContent = `${hour.padStart(2, '0')}:00 ${ampm}`;
+          }
+
+          function toggleTable(tableToShow) {
+              table1.style.display = tableToShow === table1 ? 'block' : 'none';
+              table2.style.display = tableToShow === table2 ? 'block' : 'none';
+              [commonButton, comprehensiveButton].forEach(button => button.classList.remove('active'));
+              (tableToShow === table1 ? commonButton : comprehensiveButton).classList.add('active');
+              updateLastDoseForTable(tableToShow);
+          }
+
+          function calculateLastDose(duration, unit) {
+              const selectedDateTime = new Date(`${procedureDateInput.value} ${timeDisplay.textContent}`);
+              if (isNaN(selectedDateTime.getTime())) {
+                  return '';
+              }
+              const lastDoseDateTime = new Date(selectedDateTime);
+              if (unit === 'days') {
+                  lastDoseDateTime.setDate(lastDoseDateTime.getDate() - duration);
+              } else if (unit === 'hours') {
+                  lastDoseDateTime.setHours(lastDoseDateTime.getHours() - duration);
+              }
+              return lastDoseDateTime.toLocaleString('en-US', { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }).replace(':00', '');
+          }
+
+          function updateLastDoseForTable(table) {
+              const rows = table.querySelectorAll('tr');
+              rows.forEach((row, index) => {
+                  if (index !== 0) {
+                      const holdFor = row.cells[1].textContent.split(' ');
+                      const duration = parseInt(holdFor[0]);
+                      const unit = holdFor[1];
+                      const lastDoseCell = row.cells[2];
+                      if (procedureDateInput.value) {
+                          lastDoseCell.textContent = calculateLastDose(duration, unit.includes('day') ? 'days' : 'hours');
+                      } else {
+                          lastDoseCell.textContent = '';
+                      }
+                  }
+              });
+          }
+
+          function updateLastDose() {
+              updateLastDoseForTable(table1.style.display === 'block' ? table1 : table2);
+          }
+
+          morningButton.onclick = () => {
+              toggleActiveTimeButton(morningButton);
+              updateTimeDisplay('08', 'AM');
+              showHourInput(false);
+              updateLastDose();
+          };
+
+          afternoonButton.onclick = () => {
+              toggleActiveTimeButton(afternoonButton);
+              updateTimeDisplay('01', 'PM');
+              showHourInput(false);
+              updateLastDose();
+          };
+
+          specificHourButton.onclick = () => {
+              toggleActiveTimeButton(specificHourButton);
+              showHourInput(true);
+              updateLastDose();
+          };
+
+          hourInput.oninput = ampmSelector.onchange = () => {
+              updateTimeDisplay(hourInput.value, ampmSelector.value);
+              updateLastDose();
+          };
+
+          commonButton.onclick = () => toggleTable(table1);
+          comprehensiveButton.onclick = () => toggleTable(table2);
+
+          toggleTable(table1);
+          generateCalendar();
+
+          function generateCalendar() {
+              const calendarContainer = document.getElementById('calendarContainer');
+              calendarContainer.innerHTML = '';
+              const today = new Date();
+              const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)));
+              for (let i = 0; i < 7; i++) {
+                  const dayName = startOfWeek.toLocaleString('default', { weekday: 'short' });
+                  const headerCell = document.createElement('div');
+                  headerCell.textContent = dayName;
+                  headerCell.className = 'calendar-header';
+                  calendarContainer.appendChild(headerCell);
+                  startOfWeek.setDate(startOfWeek.getDate() + 1);
+              }
+              startOfWeek.setDate(startOfWeek.getDate() - 7);
+              for (let i = 0; i < 28; i++) {
+                  const cellDate = new Date(startOfWeek);
+                  cellDate.setDate(cellDate.getDate() + i);
+                  const dayCell = document.createElement('div');
+                  dayCell.className = 'day';
+                  dayCell.textContent = cellDate.getDate();
+                  if (cellDate.toDateString() === new Date().toDateString()) {
+                      dayCell.classList.add('today');
+                  }
+                  dayCell.onclick = () => {
+                      if (lastSelectedDay) lastSelectedDay.classList.remove('selected');
+                      dayCell.classList.add('selected');
+                      lastSelectedDay = dayCell;
+                      procedureDateInput.value = `${cellDate.getMonth() + 1}/${cellDate.getDate()}/${cellDate.getFullYear()}`;
+                      updateLastDoseForTable(table1.style.display === 'block' ? table1 : table2);
+                  };
+                  calendarContainer.appendChild(dayCell);
+              }
+          }
+      });
+    </script>
+</body>
+</html>
