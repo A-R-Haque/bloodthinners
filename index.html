@@ -262,7 +262,9 @@
         });
 
         document.getElementById('source').addEventListener('click', function() {
-            window.open('https://rapm.bmj.com/content/rapm/43/3/225.full.pdf', '_blank');
+          var pdfPath = 'ASRA.pdf';
+          // Open the PDF in a new window or tab
+          window.open(pdfPath, '_blank');
         });
 
         document.getElementById('questions').addEventListener('click', function() {
