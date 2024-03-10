@@ -120,9 +120,10 @@
             margin-top: 20px;
         }
       #summaryImage {
-      display: none;
-      margin-top: 20px;
-      width: 100%;
+        width: 100%; /* Ensures the image is always 100% of its container's width */
+        max-width: 600px; /* Limits the image width to 600px or less */
+        height: auto; /* Maintains the aspect ratio */
+    }
       
         }
       .header-image {
@@ -132,6 +133,11 @@
       .risk-selection {
           margin-top: 20px;
       }
+          @media (min-width: 768px) {
+        #summaryImage {
+            max-width: 50%; /* Reduces the max-width on larger screens */
+        }
+    }
     </style>
 </head>
 <body>
