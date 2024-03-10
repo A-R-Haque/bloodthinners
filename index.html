@@ -91,10 +91,14 @@
             border: 1px solid #ddd;
             text-align: center;
             padding: 8px;
-            white-space: normal;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
+      @media (max-width: 500px) {
+      th, td {
+        white-space: normal; /* Allow wrapping on smaller screens */
+      }
         th {
             background-color: #f2f2f2;
         }
