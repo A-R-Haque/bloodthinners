@@ -119,10 +119,9 @@
             display: none;
             margin-top: 20px;
         }
-      #summaryImage {
-        width: 100%; /* Ensures the image is always 100% of its container's width */
-        max-width: 600px; /* Limits the image width to 600px or less */
-        height: auto; /* Maintains the aspect ratio */
+
+
+        
     }
       
         }
@@ -133,10 +132,7 @@
       .risk-selection {
           margin-top: 20px;
       }
-          @media (min-width: 768px) {
-        #summaryImage {
-            max-width: 70%; /* Reduces the max-width on larger screens */
-        }
+          
     }
     </style>
 </head>
@@ -267,11 +263,10 @@
     <img id="summaryImage" src="summary.gif" alt="Summary" style="display:none;">
     <div id="emailText" style="display:none;">Please email Ahmed.Haque@VA.Gov</div>
     <script>
-        document.getElementById('fullSummary').addEventListener('click', function() {
-            var summaryImage = document.getElementById('summaryImage');
-            summaryImage.style.display = summaryImage.style.display === 'none' ? 'block' : 'none';
-            document.getElementById('emailText').style.display = 'none';
-        });
+      document.getElementById('fullSummary').addEventListener('click', function() {
+          // This line opens summary.gif in a new tab/window
+          window.open('summary.gif', '_blank');
+      });
 
         document.getElementById('source').addEventListener('click', function() {
           var pdfPath = 'ASRA.pdf';
